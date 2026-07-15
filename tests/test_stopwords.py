@@ -2,7 +2,7 @@
 Tests for the stopwords module.
 """
 
-import stopwords
+from normalizer import stopwords
 
 
 class TestRemoveStopwords:
@@ -55,3 +55,6 @@ class TestRemoveStopwords:
 
     def test_um_uh(self):
         assert stopwords.remove_stopwords("um go to uh alpha") == "go to alpha"
+
+    def test_while(self):
+        assert stopwords.remove_stopwords("while avoiding") == "avoiding"

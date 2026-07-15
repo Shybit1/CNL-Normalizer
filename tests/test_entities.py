@@ -2,7 +2,7 @@
 Tests for the entities module.
 """
 
-import entities
+from normalizer import entities
 
 
 class TestNormalizeEntities:

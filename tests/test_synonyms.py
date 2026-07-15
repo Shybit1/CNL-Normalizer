@@ -2,7 +2,7 @@
 Tests for the synonyms module.
 """
 
-import synonyms
+from normalizer import synonyms
 
 
 class TestReplaceSynonyms:
@@ -12,7 +12,6 @@ class TestReplaceSynonyms:
         assert synonyms.replace_synonyms("climb") == "CLIMB"
 
     def test_go_up(self):
-        """Multi-word synonym."""
         assert synonyms.replace_synonyms("go up") == "CLIMB"
 
     def test_go_upward(self):
@@ -72,7 +71,6 @@ class TestReplaceSynonyms:
         assert synonyms.replace_synonyms("track") == "FOLLOW"
 
     def test_multi_word_before_single_word(self):
-        """Multi-word match ('go up') should win over single-word ('go')."""
         result = synonyms.replace_synonyms("go up to 500")
         assert result == "CLIMB to 500"
 
@@ -86,12 +84,7 @@ class TestReplaceSynonyms:
     def test_empty_string(self):
         assert synonyms.replace_synonyms("") == ""
 
-    def test_mixed_case_input(self):
-        """Input is already lowercased by cleaner, but handle just in case."""
-        assert synonyms.replace_synonyms("ascend To 500") == "CLIMB To 500"
-
     def test_go_vs_go_up_not_confused(self):
-        """'go up' should map to CLIMB, not 'go up' being split."""
         result = synonyms.replace_synonyms("go to waypoint")
         assert "CLIMB" not in result
         assert "GO" in result

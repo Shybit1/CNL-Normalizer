@@ -2,7 +2,7 @@
 Tests for the cleaner module.
 """
 
-import cleaner
+from normalizer import cleaner
 
 
 class TestCleaner:
@@ -25,11 +25,9 @@ class TestCleaner:
         assert cleaner.clean("  go up to 500 meters  ") == "go up to 500 meters"
 
     def test_preserves_hyphenated_words(self):
-        """Hyphens within words should be preserved."""
         assert cleaner.clean("twenty-one") == "twenty-one"
 
     def test_preserves_apostrophes(self):
-        """Apostrophes within words should be preserved."""
         assert cleaner.clean("drone's position") == "drone's position"
 
     def test_special_chars(self):
@@ -57,7 +55,6 @@ class TestCleaner:
         assert cleaner.clean("avoid (sector bravo)") == "avoid sector bravo"
 
     def test_dashes_as_separators(self):
-        """Standalone dashes (not within words) should be removed."""
         assert cleaner.clean("go to -- point") == "go to point"
 
     def test_no_change_needed(self):

@@ -27,7 +27,7 @@ NUMBER_WORDS = {
     "twenty", "thirty", "forty", "fifty", "sixty", "seventy",
     "eighty", "ninety",
     "hundred", "thousand",
-    # Hyphenated forms may appear after text splitting (e.g., "twenty-one")
+    # Hyphenated forms
     "twenty-one", "twenty-two", "twenty-three", "twenty-four", "twenty-five",
     "twenty-six", "twenty-seven", "twenty-eight", "twenty-nine",
     "thirty-one", "thirty-two", "thirty-three", "thirty-four", "thirty-five",
@@ -47,14 +47,11 @@ NUMBER_WORDS = {
     "ninety-one", "ninety-two", "ninety-three", "ninety-four",
     "ninety-five", "ninety-six", "ninety-seven", "ninety-eight",
     "ninety-nine",
-    "first", "second", "third", "fourth", "fifth", "sixth", "seventh",
-    "eighth", "ninth", "tenth",
     # Conjunctions that appear inside number phrases
     "and",
 }
 
-# We explicitly do NOT include "a" or "an" as number words,
-# because they are far more common as articles than as the number "one".
+# We explicitly do NOT include "a" or "an" as number words.
 
 
 def normalize_numbers(text: str) -> str:
@@ -80,14 +77,11 @@ def normalize_numbers(text: str) -> str:
     while i < len(tokens):
         # Check if current token could start a number phrase
         if tokens[i] in NUMBER_WORDS:
-            # Try to find the longest number phrase starting at i
-            # that word2number can successfully parse
             number_found = False
 
             for end in range(min(i + 12, len(tokens)), i, -1):
                 phrase = " ".join(tokens[i:end])
                 # Quick check: do all tokens look number-ish?
-                # (avoids expensive w2n calls on obviously non-number phrases)
                 all_numberish = all(
                     t in NUMBER_WORDS or t.replace("-", "").isdigit()
                     for t in tokens[i:end]
@@ -95,14 +89,8 @@ def normalize_numbers(text: str) -> str:
                 if not all_numberish:
                     continue
 
-                # Replace ordinals with cardinals before parsing
-                # (word2number doesn't handle ordinal words like "first")
-                cardinal_phrase = " ".join(
-                    ORDINAL_MAP.get(t, t) for t in tokens[i:end]
-                )
-
                 try:
-                    num_val = w2n.word_to_num(cardinal_phrase)
+                    num_val = w2n.word_to_num(phrase)
                     result.append(str(num_val))
                     i = end
                     number_found = True
@@ -118,16 +106,3 @@ def normalize_numbers(text: str) -> str:
             i += 1
 
     return " ".join(result)
-# Ordinal → cardinal mapping for words word2number doesn't handle
-ORDINAL_MAP = {
-    "first": "one",
-    "second": "two",
-    "third": "three",
-    "fourth": "four",
-    "fifth": "five",
-    "sixth": "six",
-    "seventh": "seven",
-    "eighth": "eight",
-    "ninth": "nine",
-    "tenth": "ten",
-}

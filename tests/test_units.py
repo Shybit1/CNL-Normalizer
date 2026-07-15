@@ -2,7 +2,7 @@
 Tests for the units module.
 """
 
-import units
+from normalizer import units
 
 
 class TestNormalizeUnits:
@@ -53,7 +53,6 @@ class TestNormalizeUnits:
         assert units.normalize_units("50 km/h") == "50 KMH"
 
     def test_multi_word_kmh(self):
-        """'kilometers per hour' is a multi-word unit."""
         assert units.normalize_units("50 kilometers per hour") == "50 KMH"
 
     def test_mph(self):
@@ -83,7 +82,6 @@ class TestNormalizeUnits:
         assert units.normalize_units("") == ""
 
     def test_multi_word_before_single_word(self):
-        """'kilometers per hour' should match before 'kilometers'."""
         result = units.normalize_units("50 kilometers per hour")
         assert "KMH" in result
         assert "KILOMETERS" not in result
