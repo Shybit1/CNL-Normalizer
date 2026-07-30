@@ -13,7 +13,7 @@ class TestAltitudeCommands:
         assert r.success is True
         assert r.intent == Intent.ALTITUDE_CHANGE
         assert r.slots["direction"] == "up"
-        assert r.slots["altitude"] == 500
+        assert r.slots["target_altitude"] == 500
         assert r.slots["unit"] == "meters"
 
     def test_descend_to_meters(self):
@@ -21,7 +21,7 @@ class TestAltitudeCommands:
         assert r.success is True
         assert r.intent == Intent.ALTITUDE_CHANGE
         assert r.slots["direction"] == "down"
-        assert r.slots["altitude"] == 300
+        assert r.slots["target_altitude"] == 300
 
     def test_climb_to_feet(self):
         r = parse("CLIMB TO 1000 FEET")
@@ -36,12 +36,12 @@ class TestAltitudeCommands:
     def test_large_altitude(self):
         r = parse("CLIMB TO 99999 METERS")
         assert r.success is True
-        assert r.slots["altitude"] == 99999
+        assert r.slots["target_altitude"] == 99999
 
     def test_zero_altitude(self):
         r = parse("DESCEND TO 0 METERS")
         assert r.success is True
-        assert r.slots["altitude"] == 0
+        assert r.slots["target_altitude"] == 0
 
 
 class TestAltitudeErrors:

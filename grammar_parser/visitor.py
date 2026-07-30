@@ -175,7 +175,7 @@ class CommandVisitor:
 
         slots = {
             "direction": direction,
-            "altitude": altitude,
+            "target_altitude": altitude,
             "unit": unit.lower(),
         }
 
@@ -320,7 +320,7 @@ class CommandVisitor:
         if i + 1 < len(tokens) and tokens[i] == 'AT':
             try:
                 alt_val = int(tokens[i + 1])
-                slots["altitude"] = alt_val
+                slots["target_altitude"] = alt_val
                 if i + 2 < len(tokens) and tokens[i + 2] in ('METERS', 'FEET'):
                     slots["unit"] = tokens[i + 2].lower()
                     i += 3

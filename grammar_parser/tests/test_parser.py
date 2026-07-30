@@ -38,7 +38,7 @@ class TestParser:
         assert r.success is True
         assert r.intent == Intent.ALTITUDE_CHANGE
         assert r.slots["direction"] == "up"
-        assert r.slots["altitude"] == 500
+        assert r.slots["target_altitude"] == 500
         assert r.slots["unit"] == "meters"
 
     def test_navigation_full_pipeline(self):
@@ -67,7 +67,7 @@ class TestParser:
         r = parse(normalize("hover at 100 meters for 30 seconds"))
         assert r.success is True
         assert r.intent == Intent.HOLD_LOITER
-        assert r.slots["altitude"] == 100
+        assert r.slots["target_altitude"] == 100
         assert r.slots["duration"] == 30
 
     def test_abort_full_pipeline(self):
@@ -98,7 +98,7 @@ class TestParser:
 
         for r in results:
             assert r.success is True
-            assert r.slots["altitude"] == 500
+            assert r.slots["target_altitude"] == 500
 
     def test_intent_enum_string(self):
         """Intent enum should work as a string."""

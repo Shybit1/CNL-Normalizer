@@ -16,7 +16,7 @@ class TestLoiterCommands:
     def test_loiter_at_altitude(self):
         r = parse("LOITER AT 100 METERS")
         assert r.success is True
-        assert r.slots["altitude"] == 100
+        assert r.slots["target_altitude"] == 100
         assert r.slots["unit"] == "meters"
 
     def test_loiter_for_seconds(self):
@@ -34,7 +34,7 @@ class TestLoiterCommands:
     def test_loiter_at_and_for(self):
         r = parse("LOITER AT 200 FEET FOR 60 SECONDS")
         assert r.success is True
-        assert r.slots["altitude"] == 200
+        assert r.slots["target_altitude"] == 200
         assert r.slots["unit"] == "feet"
         assert r.slots["duration"] == 60
         assert r.slots["duration_unit"] == "seconds"
