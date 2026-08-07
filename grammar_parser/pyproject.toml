@@ -1,0 +1,8 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "grammar_parser"
+version = "0.1.0"
+description = "ANTLR4-based deterministic syntactic parser for canonical drone commands"
