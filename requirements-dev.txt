@@ -1,7 +1,0 @@
-# Dev/test requirements
-antlr4-python3-runtime
-pytest
-pytest-benchmark
-ruff
-mypy
-coverage
