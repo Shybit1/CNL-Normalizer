@@ -1,0 +1,11 @@
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "W", "C", "B"]
+
+[tool.black]
+line-length = 88
+
+[tool.mypy]
+python_version = "3.12"
+check_untyped_defs = true
+ignore_missing_imports = true
