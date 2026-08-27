@@ -15,7 +15,7 @@ Per PRD §25: Typed objects include:
 """
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Optional
 from abc import ABC, abstractmethod
 
 

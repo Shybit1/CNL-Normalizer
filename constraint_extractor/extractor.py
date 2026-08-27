@@ -14,7 +14,7 @@ Per PRD §23-28:
 
 import sys
 import os
-from typing import Any, Dict, List, Optional
+from typing import List
 
 # Load entity dictionaries from normalizer
 _VALID_WAYPOINTS = None
